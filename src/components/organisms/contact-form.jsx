@@ -28,7 +28,7 @@ export const ContactForm = ({title, quantity, price}) => {
         tel: "",
         },
     });
-
+ 
     const router = useRouter();
 
     const onSubmit = async (data) => {
