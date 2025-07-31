@@ -3,28 +3,45 @@ import ProductCard from './product-card';
 import Image from 'next/image';
 import banner from "@/assets/banner.jpg";
 import FilterDropdown from "@/components/molecules/dropdown";
-import { useState } from "react";
+import SearchBar from "@/components/molecules/search-bar";
+import { useState, useMemo } from "react";
 
 export const ProductCatalogSection = ({ stories }) => {
   const [filter, setFilter] = useState("price-asc");
-  const sortedStories = [...stories].sort((a, b) => {
-    const aTitle = a.content.title?.toLowerCase() || "";
-    const bTitle = b.content.title?.toLowerCase() || "";
-    const aPrice = parseFloat(a.content.price);
-    const bPrice = parseFloat(b.content.price);
-    switch (filter) {
-      case "price-asc":
-        return aPrice - bPrice;
-      case "price-desc":
-        return bPrice - aPrice;
-      case "alpha-asc":
-        return aTitle.localeCompare(bTitle);
-      case "alpha-desc":
-        return bTitle.localeCompare(aTitle);
-      default:
-        return 0;
-    }
-  });
+  const [search, setSearch] = useState("");
+
+  const allTitles = useMemo(() =>
+    Array.from(new Set(stories.map(s => s.content.title?.trim() || ""))).filter(Boolean),
+    [stories]
+  );
+
+  const filteredStories = useMemo(() => {
+    if (!search) return stories;
+    return stories.filter(story =>
+      story.content.title?.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [stories, search]);
+
+  const sortedStories = useMemo(() => {
+    return [...filteredStories].sort((a, b) => {
+      const aTitle = a.content.title?.toLowerCase() || "";
+      const bTitle = b.content.title?.toLowerCase() || "";
+      const aPrice = parseFloat(a.content.price);
+      const bPrice = parseFloat(b.content.price);
+      switch (filter) {
+        case "price-asc":
+          return aPrice - bPrice;
+        case "price-desc":
+          return bPrice - aPrice;
+        case "alpha-asc":
+          return aTitle.localeCompare(bTitle);
+        case "alpha-desc":
+          return bTitle.localeCompare(aTitle);
+        default:
+          return 0;
+      }
+    });
+  }, [filteredStories, filter]);
 
   return (
     <main className="flex-grow min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-gray-100 via-blue-50 to-yellow-50">
@@ -32,7 +49,7 @@ export const ProductCatalogSection = ({ stories }) => {
         <Image
           className="w-full h-[12.5rem] object-cover"
           src={banner}
-          alt="Library Lego Banner"
+          alt="Lego Banner"
           priority
         />
         <div className="py-4 flex flex-col max-w-7xl mx-auto w-full px-4">
@@ -40,8 +57,17 @@ export const ProductCatalogSection = ({ stories }) => {
             <h1 className="text-2xl sm:text-3xl text-center font-extrabold text-gray-800 drop-shadow-sm tracking-wide">Main Catalog</h1>
             <h2 className="text-xl sm:text-2xl text-center text-gray-500 italic mt-2">Take a look at what we have for you</h2>
           </div>
-          <div className="flex self-end mt-4">
-            <FilterDropdown onSelect={setFilter} />
+          <div className="flex flex-col sm:flex-row mt-4">
+            <div className="sm:flex-1 sm:mr-4">
+              <SearchBar
+                onSearch={setSearch}
+                placeholder="Search bricks..."
+                suggestions={allTitles}
+              />
+            </div>
+            <div className="sm:flex-none sm:self-end mt-2 sm:mt-0 sm:ml-auto">
+              <FilterDropdown onSelect={setFilter} />
+            </div>
           </div>
         </div>
       </header>
