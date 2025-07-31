@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const ProductCard = ({ blok, slug }) => {
+const ProductCard = ({ blok, slug, className = "" }) => {
   return (
-    <Link href={`/products/${slug}`} className="flex flex-col items-center justify-center rounded-md cursor-pointer group focus:outline-none">
+    <Link href={`/products/${slug}`} className={`flex flex-col items-center justify-center rounded-md cursor-pointer group focus:outline-none ${className}`}>
       <Image
         src={`https:${blok.image}`}
         alt={blok.title}

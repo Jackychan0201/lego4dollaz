@@ -77,7 +77,7 @@ export const ProductCatalogSection = ({ stories }) => {
             key={story.id}
             className="border-3 border-black-200 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-xl bg-white rounded-xl shadow-md p-4 flex flex-col items-center"
           >
-            <ProductCard blok={story.content} slug={story.slug.split('/').pop()} />
+            <ProductCard className="ProductCard" blok={story.content} slug={story.slug.split('/').pop()} />
           </li>
         ))}
       </ul>
