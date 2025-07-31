@@ -4,7 +4,8 @@ import Image from 'next/image';
 import banner from "@/assets/banner.jpg";
 import FilterDropdown from "@/components/molecules/dropdown";
 import SearchBar from "@/components/molecules/search-bar";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+import SplitText from "@/components/jsrepo/text-animations/split-text";
 
 export const ProductCatalogSection = ({ stories }) => {
   const [filter, setFilter] = useState("price-asc");
@@ -54,7 +55,20 @@ export const ProductCatalogSection = ({ stories }) => {
         />
         <div className="py-4 flex flex-col max-w-7xl mx-auto w-full px-4">
           <div className='flex flex-col self-cetner justify-center'>
-            <h1 className="text-2xl sm:text-3xl text-center font-extrabold text-gray-800 drop-shadow-sm tracking-wide">Main Catalog</h1>
+            <SplitText 
+            text="Main Catalog" 
+            className="text-2xl sm:text-3xl text-center font-extrabold drop-shadow-sm tracking-wide"
+            delay={100}
+            duration={0.6}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+            textAlign="center">
+              Main Catalog
+            </SplitText>
             <h2 className="text-xl sm:text-2xl text-center text-gray-500 italic mt-2">Take a look at what we have for you</h2>
           </div>
           <div className="flex flex-col sm:flex-row mt-4">

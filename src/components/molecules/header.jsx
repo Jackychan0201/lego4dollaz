@@ -12,6 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import BlurText from "@/components/jsrepo/text-animations/blur-text";
 
 export const Header = () => {
   const navItems = [
@@ -65,8 +66,15 @@ export const Header = () => {
       </NavigationMenu>
 
       <div className="mx-auto flex-grow flex justify-center items-center">
-        <Link href="/" className="text-sm font-bold text-center sm:text-base md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl text-gray-800 focus:outline-none">
-          LEGO4DOLLAZ
+        <Link href="/" >
+          <BlurText
+            text="LEGO4DOLLAZ"
+            className="text-sm font-bold text-center sm:text-base md:text-lg lg:text-2xl xl:text-3xl text-gray-800 focus:outline-none"
+            direction="bottom"
+            animateBy="chars"
+            delay={150}
+          />
+
         </Link>
       </div>
     </div>
