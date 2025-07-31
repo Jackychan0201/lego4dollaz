@@ -2,10 +2,29 @@
 import ProductCard from './product-card';
 import Image from 'next/image';
 import banner from "@/assets/banner.jpg";
-import FilterDropdown from "@/components/molecules/dropdown";
+import FilterDropdown from "@/components/molecules/filter-dropdown";
 import SearchBar from "@/components/molecules/search-bar";
+
 import { useMemo, useState } from "react";
 import SplitText from "@/components/jsrepo/text-animations/split-text";
+
+const MainCatalogHeading = (
+  <SplitText
+    text="Main Catalog"
+    className="text-2xl sm:text-3xl text-center font-extrabold drop-shadow-sm tracking-wide"
+    delay={100}
+    duration={0.6}
+    ease="power3.out"
+    splitType="chars"
+    from={{ opacity: 0, y: 40 }}
+    to={{ opacity: 1, y: 0 }}
+    threshold={0.1}
+    rootMargin="-100px"
+    textAlign="center"
+  >
+    Main Catalog
+  </SplitText>
+);
 
 export const ProductCatalogSection = ({ stories }) => {
   const [filter, setFilter] = useState("price-asc");
@@ -55,20 +74,7 @@ export const ProductCatalogSection = ({ stories }) => {
         />
         <div className="py-4 flex flex-col max-w-7xl mx-auto w-full px-4">
           <div className='flex flex-col self-cetner justify-center'>
-            <SplitText 
-            text="Main Catalog" 
-            className="text-2xl sm:text-3xl text-center font-extrabold drop-shadow-sm tracking-wide"
-            delay={100}
-            duration={0.6}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-            textAlign="center">
-              Main Catalog
-            </SplitText>
+            {MainCatalogHeading}
             <h2 className="text-xl sm:text-2xl text-center text-gray-500 italic mt-2">Take a look at what we have for you</h2>
           </div>
           <div className="flex flex-col sm:flex-row mt-4">
@@ -85,16 +91,22 @@ export const ProductCatalogSection = ({ stories }) => {
           </div>
         </div>
       </header>
-      <ul className="mt-8 px-4 pb-16 w-full max-w-7xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 sm:gap-8 md:gap-10 xl:gap-12">
-        {sortedStories.map((story) => (
-          <li
-            key={story.id}
-            className="border-3 border-black-200 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-xl bg-white rounded-xl shadow-md p-4 flex flex-col items-center"
-          >
-            <ProductCard className="ProductCard" blok={story.content} slug={story.slug.split('/').pop()} />
-          </li>
-        ))}
-      </ul>
+      {sortedStories.length === 0 ? (
+        <div className="mt-16 w-full flex justify-center items-center text-gray-400 text-xl font-semibold min-h-[10rem]">
+          Sorry, no bricks found with this name.
+        </div>
+      ) : (
+        <ul className="mt-8 px-4 pb-16 w-full max-w-7xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 sm:gap-8 md:gap-10 xl:gap-12">
+          {sortedStories.map((story) => (
+            <li
+              key={story.id}
+              className="border-3 border-black-200 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-xl bg-white rounded-xl shadow-md p-4 flex flex-col items-center"
+            >
+              <ProductCard className="ProductCard" blok={story.content} slug={story.slug.split('/').pop()} />
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   );
 };

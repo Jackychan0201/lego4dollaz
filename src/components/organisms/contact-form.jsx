@@ -72,8 +72,7 @@ export const ContactForm = ({title, quantity, price}) => {
               } 
             },
           })
-        form.reset();
-      }
+        }
     };
 
     return (

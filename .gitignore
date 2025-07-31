@@ -34,6 +34,26 @@ yarn-error.log*
 # vercel
 .vercel
 
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+*.sw?
+*.bak
+*.tmp
+*.orig
+*.vscode-test/
+*.log
+*.iml
+*.ipr
+*.iws
+*.nbproject/
+*.DS_Store
+*.AppleDouble
+*.LSOverride
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
