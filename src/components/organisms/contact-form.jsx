@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { formSchema } from "@/lib/utils/form-schema";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 import {
   Form,
@@ -81,21 +83,6 @@ export const ContactForm = ({title, quantity, price}) => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full max-w-xl mx-auto gap-10">
           <FormField
             control={form.control}
-            name="email"
-            render={({ field: inputField }) => (
-              <FormItem className="flex flex-col gap-3">
-                <FormLabel className="self-start text-base sm:text-lg md:text-2xl 2xl:text-3xl">
-                  E-mail address <span className="text-red-500">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input type="email" placeholder="your@email.com" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="firstName"
             render={({ field: inputField }) => (
               <FormItem className="flex flex-col gap-3">
@@ -103,7 +90,7 @@ export const ContactForm = ({title, quantity, price}) => {
                   First name <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="John" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl  py-3" />
+                  <Input type="text" placeholder="John" {...inputField} className="rounded-sm w-full text-sm sm:text-base md:text-lg lg:text-2xl  py-3" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -118,7 +105,7 @@ export const ContactForm = ({title, quantity, price}) => {
                   Last name <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Doe" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
+                  <Input type="text" placeholder="Doe" {...inputField} className="rounded-sm w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -133,7 +120,28 @@ export const ContactForm = ({title, quantity, price}) => {
                   Phone number <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="+1 234 567 890" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
+                  <div className="w-full">
+                    <PhoneInput
+                      country={"pl"}
+                      {...inputField}
+                      inputClass="!border-gray-200 !shadow-sm !border-1 !bg-white !w-full !text-sm sm:!text-base md:!text-lg lg:!text-2xl !py-3"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field: inputField }) => (
+              <FormItem className="flex flex-col gap-3">
+                <FormLabel className="self-start text-base sm:text-lg md:text-2xl 2xl:text-3xl">
+                  E-mail address <span className="text-red-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input type="email" placeholder="your@email.com" {...inputField} className="rounded-sm w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
