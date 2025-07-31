@@ -23,8 +23,8 @@ export const ContactForm = ({title, quantity, price}) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
         email: "",
-        fname: "",
-        lname: "",
+        firstName: "",
+        lastName: "",
         tel: "",
         },
     });
@@ -97,7 +97,7 @@ export const ContactForm = ({title, quantity, price}) => {
           />
           <FormField
             control={form.control}
-            name="fname"
+            name="firstName"
             render={({ field: inputField }) => (
               <FormItem className="flex flex-col gap-3">
                 <FormLabel className="self-start text-medium sm:text-lg md:text-2xl">
@@ -112,7 +112,7 @@ export const ContactForm = ({title, quantity, price}) => {
           />
           <FormField
             control={form.control}
-            name="lname"
+            name="lastName"
             render={({ field: inputField }) => (
               <FormItem className="flex flex-col gap-3">
                 <FormLabel className="self-start text-medium sm:text-lg md:text-2xl">

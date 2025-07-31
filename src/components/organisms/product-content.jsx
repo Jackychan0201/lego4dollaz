@@ -1,16 +1,25 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ImageMagnifier from "@/components/molecules/image-magnifier";
+import { useRouter } from "next/navigation";
 
 export const ProductContent = ({ blok }) => {
-    const imageUrl = blok.image?.startsWith("https:") ? blok.image : `https:${blok.image}`;
+    const router = useRouter();
 
+    const BackButton = () => (
+        <Button variant="outline" onClick={() => router.back()} className="text-base w-fit mt-3 ml-3">
+        ← Back
+        </Button>
+    )
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-100 via-blue-50 to-yellow-50">
-            <div className="flex flex-col items-center md:flex-row gap-8 bg-white/80 rounded-xl shadow-lg p-8 border border-gray-200 w-full max-w-4xl mx-4 my-8">
+        <div className="min-h-screen w-full flex flex-col bg-gradient-to-br from-gray-100 via-blue-50 to-yellow-50">
+            <BackButton/>
+            <div className="flex flex-col self-center justify-self-center items-center md:flex-row gap-8 bg-white/80 rounded-xl shadow-lg p-8 border border-gray-200 w-full max-w-4xl mx-4 my-8">
                 <div className="md:self-start min-size-[10rem] m-4 rounded-lg border-4 border-gray-200 shadow-md flex items-center justify-center bg-white">
                   <ImageMagnifier
-                    src={imageUrl}
+                    src={`https:${blok.image}`}
                     width={300}
                     height={300}
                     alt={blok.title}

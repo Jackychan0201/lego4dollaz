@@ -2,7 +2,6 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +19,6 @@ import Image from "next/image";
 export const OrderPage = () => {
   
   const searchParams = useSearchParams();
-  const router = useRouter();
   const title = searchParams.get("title");
   const price = searchParams.get("price");
   const imageUrl = searchParams.get("image");
@@ -47,35 +45,50 @@ export const OrderPage = () => {
 
   const OrderDetails = ({ imageSize = 180 }) => {
     let widthClass = "w-44 max-w-[180px]";
-    if (imageSize === 90) widthClass = "w-24 max-w-[90px]";
+    const subtotal = (Math.round(parseFloat(price) * quantity * 100) / 100).toFixed(2);
+    const shippingCost = 0;
+
     return (
-      <div className="flex flex-row gap-4 text-balance justify-start my-4 w-full items-center py-2">
-        <div className={twMerge(
-          "relative flex items-center justify-center aspect-square ",
-          widthClass
-        )}>
-          <Image
-            src={image}
-            alt={title || "Order image"}
-            fill
-            className="object-contain rounded-md border-4 border-gray-400"
-            sizes={imageSize === 90 ? "(max-width: 640px) 100vw, 90px" : "(max-width: 640px) 100vw, 180px"}
-          />
-          <Badge className="absolute -top-2 -right-2 h-5 min-w-5 size-[20%] rounded-full px-1 font-mono tabular-nums">
-            <p className="text-sm sm:text-medmium md:text-lg lg:text-xl">{quantity}</p> 
-          </Badge>
-        </div>
-        <div className="flex flex-col gap-3">
-          <div>
-            <div className={twMerge(
-              "flex flex-row text-nowrap text-center text-gray-800 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold"
-            )}>
-              <p className="">{title}</p>
-              <p>({price})</p>
-            </div>
+      <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-row gap-4 text-balance justify-start items-center py-2">
+          <div className={twMerge(
+            "relative flex items-center justify-center aspect-square",
+            widthClass
+          )}>
+            <Image
+              src={image}
+              alt={title || "Order image"}
+              fill
+              className="object-contain rounded-md border-4 border-gray-400"
+              sizes={imageSize === 90 ? "(max-width: 640px) 100vw, 90px" : "(max-width: 640px) 100vw, 180px"}
+            />
+            <Badge className="absolute -top-2 -right-2 h-5 min-w-5 size-[20%] rounded-full px-1 font-mono tabular-nums">
+              <p className="text-sm sm:text-medmium md:text-lg lg:text-xl">{quantity}</p> 
+            </Badge>
           </div>
-          <QuantityControls />
+          <div className="flex flex-col gap-3">
+            <div>
+              <div className="flex flex-row flex-wrap items-baseline gap-2 text-gray-800 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                <p>{title}</p>
+                <p>({price})</p>
+              </div>
+            </div>
+            <QuantityControls />
+          </div>
         </div>
+        <div className="w-full flex flex-col gap-1">
+          <div className="flex flex-row justify-between items-center w-full">
+            <span className="font-normal text-gray-600 text-lg sm:text-xl md:text-2xl">Subtotal:</span>
+            <span className="font-medium text-gray-800 text-lg sm:text-xl md:text-2xl">${subtotal}</span>
+          </div>
+          <div className="flex flex-row justify-between items-center w-full">
+            <span className="font-normal text-gray-600 text-lg sm:text-xl md:text-2xl">Shipping cost:</span>
+            <span className="font-medium text-green-600 text-lg sm:text-xl md:text-2xl">{shippingCost === 0 ? "free" : `$${shippingCost.toFixed(2)}`}</span>
+          </div>
+        </div>
+        <Label className="self-start font-medium text-center text-blue-700 mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+          TOTAL: {orderPrice}
+        </Label>
       </div>
     );
   };
@@ -88,81 +101,72 @@ export const OrderPage = () => {
     </div>
   );
 
+  const Card = ({ children }) => (
+      <div className="h-full w-full lg:w-1/2 flex flex-col items-center p-10 gap-6 bg-white/80 rounded-xl shadow-lg border border-gray-200">
+        {children}
+      </div>
+    );
+
+  const SectionTitle = ({ children }) => (
+    <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center font-semibold text-gray-600 mb-4">
+      {children}
+    </p>
+  );
+
+
   return (
     <div className="min-h-screen w-full flex flex-col items-center lg:justify-center bg-gradient-to-br from-gray-100 via-blue-50 to-yellow-50">
-      {/* Desktop layout */}
-      <div className="hidden lg:flex lg:h-full lg:flex-row lg:items-center lg:justify-center w-full max-w-5xl gap-8">
-        <div className="h-full w-1/2 flex flex-col items-center p-10 gap-6 bg-white/80 rounded-xl shadow-lg border border-gray-200">
-          <div className="w-full flex flex-row items-center mb-2">
-            <div className="flex-1 flex">
-              <Button
-                variant="outline"
-                onClick={() => router.back()}
-                className="text-base w-fit"
-              >
-                ← Back
-              </Button>
-            </div>
-            <div className="flex-1 flex justify-center">
-              <Link
-                href="/"
-                className="text-2xl font-extrabold text-center text-blue-700 drop-shadow-sm hover:underline scale-90 sm:scale-100"
-              >
-                LEGO4DOLLAZ
-              </Link>
-            </div>
-            <div className="flex-1" />
-          </div>
-          <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-center text-gray-600 mb-4">Contact info</p>
-          <ContactForm title={title} quantity={quantity} price={orderPrice} />
-        </div>
-        <div className="h-full w-1/2 flex flex-col items-center p-10 gap-6 bg-white/80 rounded-xl shadow-lg border border-gray-200">
-          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-center text-gray-700 mb-2">Order details</p>
-          <OrderDetails imageSize={120} />
-          <Label className="self-start text-lg font-medium text-center text-blue-700">TOTAL: {orderPrice}</Label>
-        </div>
+      {/* Header */}
+      <div className="w-full flex flex-col px-4 gap-2 lg:px-0 my-4 max-w-5xl">
+          <Link
+            href="/"
+            className="flex self-center justify-center text-2xl md:text-3xl font-extrabold text-blue-700 drop-shadow-sm hover:underline"
+          >
+            LEGO4DOLLAZ
+          </Link>
+        <div className="flex-1 lg:block hidden" />
       </div>
 
-      {/* Mobile layout */}
-      <div className="lg:hidden w-full flex flex-col items-center justify-start gap-6 my-8">
-        <div className="w-full flex items-center px-4 mb-2">
-          <Button variant="outline" onClick={() => router.back()} className="text-base w-fit">
-            ← Back
-          </Button>
-        </div>
-        <Link href="/" className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-center text-blue-700 my-4">
-          LEGO4DOLLAZ
-        </Link>
-        <Accordion type="single" collapsible className="w-[95%] py-2 px-4 bg-white/80 rounded-xl shadow-lg border border-gray-200">
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex w-full max-w-5xl h-full gap-8 justify-center items-center">
+        <Card className="flex-1">
+          <SectionTitle>Contact info</SectionTitle>
+          <ContactForm title={title} quantity={quantity} price={orderPrice} />
+        </Card>
+
+        <Card className="flex-1">
+          <SectionTitle>Order details</SectionTitle>
+          <OrderDetails imageSize={120} />
+        </Card>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="lg:hidden w-full flex flex-col items-center gap-6 px-4 mb-8">
+        <Accordion
+          type="single"
+          collapsible
+          className="w-full py-2 px-4 bg-white/80 rounded-xl shadow-lg border border-gray-200"
+        >
           <AccordionItem value="item-1">
             <AccordionTrigger className="flex items-center">
-              <div className="flex flex-row w-full justify-between items-center font-semibold text-gray-700 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                <span className="flex flex-col items-start">
-                  <span>Order details <span className="text-gray-500">({orderPrice})</span></span>
+              <div className="w-full flex justify-between items-center font-semibold text-gray-700 text-xl sm:text-2xl">
+                <span>
+                  Order details <span className="text-gray-500">({orderPrice})</span>
                 </span>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="flex flex-col gap-4 text-balance items-center py-2">
-              <OrderDetails imageSize={150} />
-              <div className="w-full flex flex-col gap-1 mt-2">
-                <div className="flex flex-row justify-between items-center w-full">
-                  <span className="font-normal text-gray-600 text-lg sm:text-xl md:text-2xl lg:text-3xl">Subtotal:</span>
-                  <span className="font-medium text-gray-800 text-lg sm:text-xl md:text-2xl lg:text-3xl">{orderPrice}</span>
-                </div>
-                <div className="flex flex-row justify-between items-center w-full">
-                  <span className="font-normal text-gray-600 text-lg sm:text-xl md:text-2xl lg:text-3xl">Shipping cost:</span>
-                  <span className="font-medium text-green-600 text-lg sm:text-xl md:text-2xl lg:text-3xl">free</span>
-                </div>
-              </div>
-              <Label className="self-start font-medium text-center text-blue-700 mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl">TOTAL: {orderPrice}</Label>
+            <AccordionContent className="flex flex-col gap-4 items-center py-2">
+              <OrderDetails imageSize={120} />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <div className="flex flex-col self-center items-center p-6 gap-5 w-[95%] bg-white/80 rounded-xl shadow-lg border border-gray-200">
-          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center text-gray-600">Contact info</p>
+
+        <Card className="w-full">
+          <SectionTitle>Contact info</SectionTitle>
           <ContactForm title={title} quantity={quantity} price={orderPrice} />
-        </div>
+        </Card>
       </div>
     </div>
+
   );
 }

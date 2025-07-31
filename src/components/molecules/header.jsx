@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import * as React from "react";
+import { useState, useEffect } from "react";
 
 import {
   NavigationMenu,
@@ -22,8 +22,8 @@ export const Header = () => {
   ];
 
   // Get current path for highlighting
-  const [currentPath, setCurrentPath] = React.useState("");
-  React.useEffect(() => {
+  const [currentPath, setCurrentPath] = useState("");
+  useEffect(() => {
     if (typeof window !== "undefined") {
       setCurrentPath(window.location.pathname);
     }
@@ -36,7 +36,7 @@ export const Header = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="text-sm rounded-md px-3 py-1.5 font-medium">
-              {currentPath === "/" ? "Home" : currentPath === "/faq" ? "FAQ" : currentPath === "/about" ? "About" : "Menu"}
+              {navItems.find((item) => item.href === currentPath)?.label || "Menu"}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="flex flex-col gap-2 px-4 py-2">
