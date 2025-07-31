@@ -12,8 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-//use map here and export them into a const object
-// const itemsNav = {}
+
 export const Header = () => {
   const navItems = [
     { label: "Home", href: "/" },
@@ -21,7 +20,6 @@ export const Header = () => {
     { label: "About", href: "/about" },
   ];
 
-  // Get current path for highlighting
   const [currentPath, setCurrentPath] = useState("");
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -59,7 +57,7 @@ export const Header = () => {
           {navItems.map((item) => (
             <NavigationMenuItem key={item.label}>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle() + (currentPath === item.href ? " bg-gray-100 font-bold underline" : "") }>
-                <Link href={item.href}>{item.label}</Link>
+                <Link href={item.href} className="text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">{item.label}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           ))}
@@ -67,7 +65,7 @@ export const Header = () => {
       </NavigationMenu>
 
       <div className="mx-auto flex-grow flex justify-center items-center">
-        <Link href="/" className="text-sm font-bold text-center sm:text-base md:text-lg lg:text-2xl text-gray-800 focus:outline-none">
+        <Link href="/" className="text-sm font-bold text-center sm:text-base md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl text-gray-800 focus:outline-none">
           LEGO4DOLLAZ
         </Link>
       </div>

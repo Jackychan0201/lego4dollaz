@@ -46,7 +46,6 @@ export const OrderPage = () => {
   const OrderDetails = ({ imageSize = 180 }) => {
     let widthClass = "w-44 max-w-[180px]";
     const subtotal = (Math.round(parseFloat(price) * quantity * 100) / 100).toFixed(2);
-    const shippingCost = 0;
 
     return (
       <div className="flex flex-col gap-4 w-full">
@@ -63,30 +62,30 @@ export const OrderPage = () => {
               sizes={imageSize === 90 ? "(max-width: 640px) 100vw, 90px" : "(max-width: 640px) 100vw, 180px"}
             />
             <Badge className="absolute -top-2 -right-2 h-5 min-w-5 size-[20%] rounded-full px-1 font-mono tabular-nums">
-              <p className="text-sm sm:text-medmium md:text-lg lg:text-xl">{quantity}</p> 
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl 2xl:text-2xl">{quantity}</p> 
             </Badge>
           </div>
           <div className="flex flex-col gap-3">
             <div>
-              <div className="flex flex-row flex-wrap items-baseline gap-2 text-gray-800 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
-                <p>{title}</p>
-                <p>({price})</p>
+              <div className="flex flex-row flex-wrap items-baseline gap-2 text-gray-800 font-bold">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl 2xl:text-3xl">{title}</p>
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl 2xl:text-2xl">({price})</p>
               </div>
             </div>
             <QuantityControls />
           </div>
         </div>
         <div className="w-full flex flex-col gap-1">
-          <div className="flex flex-row justify-between items-center w-full">
-            <span className="font-normal text-gray-600 text-lg sm:text-xl md:text-2xl">Subtotal:</span>
-            <span className="font-medium text-gray-800 text-lg sm:text-xl md:text-2xl">${subtotal}</span>
+          <div className="flex flex-row justify-between items-center w-full text-base sm:text-lg md:text-xl xl:text-2xl 2xl:text-3xl">
+            <span className="font-normal text-gray-600">Subtotal:</span>
+            <span className="font-medium text-gray-800">${subtotal}</span>
           </div>
-          <div className="flex flex-row justify-between items-center w-full">
-            <span className="font-normal text-gray-600 text-lg sm:text-xl md:text-2xl">Shipping cost:</span>
-            <span className="font-medium text-green-600 text-lg sm:text-xl md:text-2xl">{shippingCost === 0 ? "free" : `$${shippingCost.toFixed(2)}`}</span>
+          <div className="flex flex-row justify-between items-center w-full text-base sm:text-lg md:text-xl xl:text-2xl 2xl:text-3xl">
+            <span className="font-normal text-gray-600">Shipping cost:</span>
+            <span className="font-medium text-green-600">free</span>
           </div>
         </div>
-        <Label className="self-start font-medium text-center text-blue-700 mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+        <Label className="self-start font-bold text-center text-blue-700 mt-2 text-base sm:text-lg md:text-xl xl:text-2xl 2xl:text-3xl">
           TOTAL: {orderPrice}
         </Label>
       </div>
@@ -94,10 +93,10 @@ export const OrderPage = () => {
   };
 
   const QuantityControls = () => (
-    <div className="w-fit py-2 flex flex-row rounded-sm bg-gray-400 text-gray-800">
-      <Button size="medium" className="bg-transparent hover:bg-transparent text-lg sm:text-xl md:text-2xl px-4" onClick={() => handleChange("+")}>+</Button>
-      <Label className="text-lg sm:text-xl md:text-2xl px-4">{quantity}</Label>
-      <Button size="medium" className="bg-transparent hover:bg-transparent text-lg sm:text-xl md:text-2xl px-4" onClick={() => handleChange("-")}>-</Button>
+    <div className="w-fit py-1 flex flex-row rounded-sm bg-gray-400 text-gray-800">
+      <Button size="lg" className="bg-transparent hover:bg-transparent text-lg sm:text-xl md:text-2xl xl:text-3xl 2xl:text-4xl px-4" onClick={() => handleChange("+")}>+</Button>
+      <Label className="text-lg sm:text-xl md:text-2xl xl:text-3xl 2xl:text-4xl px-4">{quantity}</Label>
+      <Button size="lg" className="bg-transparent hover:bg-transparent text-lg sm:text-xl md:text-2xl xl:text-3xl 2xl:text-4xl px-4" onClick={() => handleChange("-")}>-</Button>
     </div>
   );
 
@@ -108,11 +107,10 @@ export const OrderPage = () => {
     );
 
   const SectionTitle = ({ children }) => (
-    <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center font-semibold text-gray-600 mb-4">
+    <p className="text-xl md:text-2xl xl:text-4xl text-center font-semibold text-gray-600 mb-4">
       {children}
     </p>
   );
-
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center lg:justify-center bg-gradient-to-br from-gray-100 via-blue-50 to-yellow-50">
@@ -120,11 +118,10 @@ export const OrderPage = () => {
       <div className="w-full flex flex-col px-4 gap-2 lg:px-0 my-4 max-w-5xl">
           <Link
             href="/"
-            className="flex self-center justify-center text-2xl md:text-3xl font-extrabold text-blue-700 drop-shadow-sm hover:underline"
+            className="flex self-center justify-center text-2xl md:text-3xl xl:text-4xl font-extrabold text-blue-700 drop-shadow-sm hover:underline"
           >
             LEGO4DOLLAZ
           </Link>
-        <div className="flex-1 lg:block hidden" />
       </div>
 
       {/* Desktop Layout */}

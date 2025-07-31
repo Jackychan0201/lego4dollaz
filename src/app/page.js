@@ -14,7 +14,7 @@ export default async function Home() {
     <Suspense fallback={<Loading/>}>
       <div className="flex flex-col min-h-full">
         <Header />
-        <ProductCatalog/>
+        <ProductCatalog />
         <Footer />
       </div>
     </Suspense>

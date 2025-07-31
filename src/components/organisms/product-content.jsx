@@ -27,10 +27,10 @@ export const ProductContent = ({ blok }) => {
                   />
                 </div>
                 <div className="flex flex-col items-center m-4 gap-y-6 w-full">
-                    <p className="font-extrabold text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-800 drop-shadow-sm mb-2">{blok.title}</p>
-                    <p className="font-semibold text-center text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-800 mb-2">{blok.price}</p>
-                    <p className="font-normal text-center text-base md:text-lg lg:text-xl xl:text-2xl text-gray-600 mb-4">{blok.shortDescription}</p>
-                    <Button asChild className="w-full max-w-xs text-lg py-2 rounded-lg shadow-md text-white font-bold">
+                    <p className="font-extrabold text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-gray-800 drop-shadow-sm mb-2">{blok.title}</p>
+                    <p className="font-semibold text-center text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-gray-800 mb-2">{blok.price}</p>
+                    <p className="font-normal text-center text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-gray-600 mb-4">{blok.shortDescription}</p>
+                    <Button asChild size="lg" className="w-full max-w-xs text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl rounded-lg shadow-md text-white font-bold">
                         <Link href={{
                             pathname: "/order",
                             query: {
@@ -42,7 +42,7 @@ export const ProductContent = ({ blok }) => {
                                 Order now
                         </Link>
                     </Button>
-                    <div className="font-light text-xs md:text-sm lg:text-base xl:text-lg text-gray-500 text-pretty whitespace-pre-line mt-4 w-full text-center">
+                    <div className="font-light text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-gray-500 text-pretty whitespace-pre-line mt-4 w-full text-center">
                         {blok.fullDescription.replace(/\\n/g, '\n\n')}
                     </div>
                 </div>

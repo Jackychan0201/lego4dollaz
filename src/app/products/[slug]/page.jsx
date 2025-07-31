@@ -5,8 +5,6 @@ import { ProductContent } from '@/components/organisms/product-content'
 import { notFound } from 'next/navigation';
 import ScrollToTop from '@/lib/utils/scroll-top';
 
-
-// this probably should be in next.config.js 
 export async function generateStaticParams() {
   const storyblokApi = getStoryblokApi();
   const { data } = await storyblokApi.get('cdn/stories', {

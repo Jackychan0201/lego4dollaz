@@ -14,7 +14,7 @@ export const ProductCatalogSection = ({ stories }) => {
         />
         <div className="py-4">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-center text-gray-800 drop-shadow-sm tracking-wide">Main Catalog</h1>
-          <h2 className="text-lg sm:text-2xl text-center text-gray-500 italic mt-2">Take a look at what we have for you</h2>
+          <h2 className="text-xl sm:text-2xl text-center text-gray-500 italic mt-2">Take a look at what we have for you</h2>
         </div>
       </header>
       <ul className="mt-8 px-4 pb-16 w-full max-w-7xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 sm:gap-8 md:gap-10 xl:gap-12">

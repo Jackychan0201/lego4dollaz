@@ -85,11 +85,11 @@ export const ContactForm = ({title, quantity, price}) => {
             name="email"
             render={({ field: inputField }) => (
               <FormItem className="flex flex-col gap-3">
-                <FormLabel className="self-start text-medium sm:text-lg md:text-2xl">
+                <FormLabel className="self-start text-base sm:text-lg md:text-2xl 2xl:text-3xl">
                   E-mail address <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="your@email.com" {...inputField} className="w-full text-medium sm:text-lg md:text-xl lg:text-2xl py-3" />
+                  <Input type="email" placeholder="your@email.com" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -100,11 +100,11 @@ export const ContactForm = ({title, quantity, price}) => {
             name="firstName"
             render={({ field: inputField }) => (
               <FormItem className="flex flex-col gap-3">
-                <FormLabel className="self-start text-medium sm:text-lg md:text-2xl">
+                <FormLabel className="self-start text-base sm:text-lg md:text-2xl 2xl:text-3xl">
                   First name <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="John" {...inputField} className="w-full text-medium sm:text-lg md:text-xl lg:text-2xl py-3" />
+                  <Input type="text" placeholder="John" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl  py-3" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -115,11 +115,11 @@ export const ContactForm = ({title, quantity, price}) => {
             name="lastName"
             render={({ field: inputField }) => (
               <FormItem className="flex flex-col gap-3">
-                <FormLabel className="self-start text-medium sm:text-lg md:text-2xl">
+                <FormLabel className="self-start text-base sm:text-lg md:text-2xl 2xl:text-3xl">
                   Last name <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Doe" {...inputField} className="w-full text-medium sm:text-lg md:text-xl lg:text-2xl py-3" />
+                  <Input type="text" placeholder="Doe" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -130,18 +130,18 @@ export const ContactForm = ({title, quantity, price}) => {
             name="tel"
             render={({ field: inputField }) => (
               <FormItem className="flex flex-col gap-3">
-                <FormLabel className="self-start text-medium sm:text-lg md:text-2xl">
+                <FormLabel className="self-start text-base sm:text-lg md:text-2xl 2xl:text-3xl">
                   Phone number <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="+1 234 567 890" {...inputField} className="w-full text-medium sm:text-lg md:text-xl lg:text-2xl py-3" />
+                  <Input type="text" placeholder="+1 234 567 890" {...inputField} className="w-full text-sm sm:text-base md:text-lg lg:text-2xl py-3" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button type="submit" className="text-medium sm:text-lg md:text-2xl py-3 text-white">Place order</Button>
+          <Button type="submit" size="lg" className="text-medium text-sm sm:text-base md:text-lg lg:text-2xl py-3 text-white">Place order</Button>
         </form>
       </Form>
     )
