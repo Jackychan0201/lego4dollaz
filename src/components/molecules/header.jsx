@@ -1,0 +1,84 @@
+"use client";
+
+import Link from "next/link";
+import { useState, useEffect } from "react";
+
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import BlurText from "@/components/jsrepo/text-animations/blur-text";
+
+export const Header = () => {
+  const navItems = [
+    { label: "Home", href: "/" },
+    { label: "FAQ", href: "/faq" },
+    { label: "About", href: "/about" },
+  ];
+
+  const [currentPath, setCurrentPath] = useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentPath(window.location.pathname);
+    }
+  }, []);
+
+  return (
+    <div className="w-full flex justify-center items-center relative h-15 bg-white shadow-sm rounded-lg p-2">
+      {/* Mobile Navigation */}
+      <NavigationMenu className="absolute left-2 block sm:hidden">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="text-sm rounded-md px-3 py-1.5 font-medium">
+              {navItems.find((item) => item.href === currentPath)?.label || "Menu"}
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="flex flex-col gap-2 px-4 py-2">
+                {navItems.map((item) => (
+                  <li className="text-sm" key={item.label}>
+                    <Link href={item.href} className={currentPath === item.href ? "font-bold underline" : ""}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+
+      {/* Desktop Navigation */}
+      <NavigationMenu className="hidden sm:flex absolute left-2">
+        <NavigationMenuList>
+          {navItems.map((item) => (
+            <NavigationMenuItem key={item.label}>
+              <NavigationMenuLink asChild className={navigationMenuTriggerStyle() + (currentPath === item.href ? " bg-gray-100 font-bold underline" : "") }>
+                <Link href={item.href} className="text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">{item.label}</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+
+      <div className="mx-auto flex-grow flex justify-center items-center">
+        <Link href="/" >
+          <BlurText
+            text="LEGO4DOLLAZ"
+            className="text-sm font-bold text-center sm:text-base md:text-lg lg:text-2xl xl:text-3xl text-gray-800 focus:outline-none"
+            direction="bottom"
+            animateBy="chars"
+            delay={150}
+          />
+
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export default Header;
